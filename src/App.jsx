@@ -78,9 +78,28 @@ const App = () => {
   ]);
   //---------------------------------------------------------------------\\
 
+  const handleFighter = (addingFighter) => {
+    //console.log(addingFighter);
+  if (addingFighter.price > money) {
+    console.log("Not enough money")
+  } else {
+    const newTeamArray= [...team, addingFighter];
+    setTeam(newTeamArray);
+    const updateMoney = money - addingFighter.price;
+    setMoney(updateMoney);
+  }
+  }
+
   return (
     <>
       <h1>Zombie Fighters!</h1>
+
+    <h3><span>Money: </span>{money}</h3>
+    <h3><span>Team Strenght: </span></h3>
+    <h3><span>Team Agility: </span></h3>
+    <h3>Team</h3>
+
+
       <h3>Fighters</h3>
       <ul>
         {zombieFighters.map((fighter, index) => (
