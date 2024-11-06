@@ -1,5 +1,6 @@
 body {
-  background-color: rgb(232, 226, 226);
+  background-color: rgb(192, 179, 179);
+  color: black;
 }
   
   ul {
@@ -10,4 +11,11 @@ body {
 li {
   list-style: none;
   margin: 10px;
+}
+
+img {
+width: 150px;
+height: 1;
+
+
 }
