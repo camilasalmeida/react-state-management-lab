@@ -78,7 +78,7 @@ const App = () => {
       img: "https://media.craiyon.com/2024-09-24/NHeFd6GATvC1a7SikvCrbQ.webp",
     },
   ]);
-  //---------------------------------------------------------------------\\
+  //--------------------------------------------------------------------------------------\\
 
   const handleFighter = (addingFighter) => {
     //console.log(addingFighter);
@@ -90,39 +90,62 @@ const App = () => {
       const updateMoney = money - addingFighter.price;
       setMoney(updateMoney);
 
-      const totalStrength = newTeamArray.reduce((accumulator, fighter) => accumulator + fighter.strength, 0);     //The reduce() function in JavaScript processes an array and reduces it to a single value.
-      const totalAgility = newTeamArray.reduce((accumulator, fighter) => accumulator + fighter.agility, 0);
+      const totalStrength = newTeamArray.reduce(
+        (accumulator, fighter) => accumulator + fighter.strength, 0);             //The reduce() function in JavaScript processes an array and reduces it to a single value.
+      const totalAgility = newTeamArray.reduce(
+        (accumulator, fighter) => accumulator + fighter.agility, 0);
+      setTotalStrength(totalStrength);
+      setTotalAgility(totalAgility);
+    }};
+
+
+    const handleRemoveFighter = (fighterToBeRemoved) => {
+      const newTeam = team.filter(
+        (fighter) => fighter.name !== fighterToBeRemoved.name);                  //The .filter() method automatically loops through the array and selects only the elements where the condition inside the callback function returns true. You don't need to manually select anything, it's all done by the .filter() method.
+      setTeam(newTeam);
+      setMoney(money + fighterToBeRemoved.price);   //refund the money
+
+      const totalStrength = newTeam.reduce(
+        (accumulator, fighter) => accumulator + fighter.strength, 0);
+      const totalAgility = newTeam.reduce(
+        (accumulator, fighter) => accumulator + fighter.agility, 0);
       setTotalStrength(totalStrength);
       setTotalAgility(totalAgility);
     }
-  };
-
-
+  
   return (
     <div>
       <h1>Zombie Fighters!</h1>
 
-      <h3><span>Money: </span>{money}</h3>
-      <h3><span>Team Strenght: {totalStrength}</span></h3>
-      <h3><span>Team Agility: {totalAgility}</span></h3>
+      <h3>
+        <span>Money: </span>
+        {money}
+      </h3>
+      <h3>
+        <span>Team Strength: {totalStrength}</span>
+      </h3>
+      <h3>
+        <span>Team Agility: {totalAgility}</span>
+      </h3>
       <h3>Team: </h3>
-    {team.length === 0 ? (
-      <p>Pick some team members!</p>
-    ) : (
-      <ul> 
-        {team.map((fighter, index) => (
-          <li key={index}>
-          <img src={fighter.img} alt={fighter.name} />
-            <p>{fighter.name}</p>
-            <p>Price: {fighter.price}</p>
-            <p>Strength: {fighter.strength}</p>
-            <p>Agility: {fighter.agility}</p>
-            <button onClick={() => handleRemoveFighter(index)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-    )}
-
+      {team.length === 0 ? (
+        <p>Pick some team members!</p>
+      ) : (
+        <ul>
+          {team.map((fighter, index) => (
+            <li key={index}>
+              <img src={fighter.img} alt={fighter.name} />
+              <p>{fighter.name}</p>
+              <p>Price: {fighter.price}</p>
+              <p>Strength: {fighter.strength}</p>
+              <p>Agility: {fighter.agility}</p>
+              <button onClick={() => handleRemoveFighter(fighter)}>
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
 
       <h3>Fighters</h3>
       <ul>
@@ -137,10 +160,8 @@ const App = () => {
           </li>
         ))}
       </ul>
-      </div>
+    </div>
   );
 };
-
-
 
 export default App;
