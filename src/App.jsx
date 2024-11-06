@@ -4,6 +4,8 @@ import "./App.css";
 const App = () => {
   const [team, setTeam] = useState([]);
   const [money, setMoney] = useState(100);
+  const [totalStrength, setTotalStrength] = useState(0);
+  const [totalAgility, setTotalAgility] = useState(0);
   const [zombieFighters, setZombieFighters] = useState([
     {
       name: "Survivor",
@@ -87,16 +89,22 @@ const App = () => {
       setTeam(newTeamArray);
       const updateMoney = money - addingFighter.price;
       setMoney(updateMoney);
+
+      const totalStrength = newTeamArray.reduce((accumulator, fighter) => accumulator + fighter.strength, 0);     //The reduce() function in JavaScript processes an array and reduces it to a single value.
+      const totalAgility = newTeamArray.reduce((accumulator, fighter) => accumulator + fighter.agility, 0);
+      setTotalStrength(totalStrength);
+      setTotalAgility(totalAgility);
     }
   };
+
 
   return (
     <div>
       <h1>Zombie Fighters!</h1>
 
       <h3><span>Money: </span>{money}</h3>
-      <h3><span>Team Strenght: </span></h3>
-      <h3><span>Team Agility: </span></h3>
+      <h3><span>Team Strenght: {totalStrength}</span></h3>
+      <h3><span>Team Agility: {totalAgility}</span></h3>
       <h3>Team: </h3>
     {team.length === 0 ? (
       <p>Pick some team members!</p>
@@ -114,6 +122,7 @@ const App = () => {
         ))}
       </ul>
     )}
+
 
       <h3>Fighters</h3>
       <ul>
